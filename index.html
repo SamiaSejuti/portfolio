@@ -366,10 +366,10 @@
         		<div class="tabs_inner">
 					<ul class="nav nav-tabs" id="myTab" role="tablist">
 						<li class="nav-item">
-							<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">My Experiences</a>
+							<a class="nav-link active" id="home-tab" href="#home" role="tab" aria-controls="home" aria-selected="true">My Experiences</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">My Education</a>
+							<a class="nav-link" id="profile-tab"  href="#profile" role="tab" aria-controls="profile" aria-selected="false">My Education</a>
 						</li>
 					</ul>
 					<div class="tab-content" id="myTabContent">
@@ -540,5 +540,34 @@
         <script src="vendors/counter-up/jquery.counterup.min.js"></script>
         <script src="js/mail-script.js"></script>
         <script src="js/theme.js"></script>
+		<script>
+			document.addEventListener('DOMContentLoaded', function () {
+				var tabs = document.querySelectorAll('.mytabs_area .nav-link'); // More specific selector
+				tabs.forEach(function(tab) {
+					tab.addEventListener('click', function(event) {
+						event.preventDefault(); // Prevent the default link behavior
+						var target = this.getAttribute('href');
+						if (!target.startsWith('#')) return; // Skip if not a tab control
+						var allTabs = document.querySelectorAll('.tab-pane');
+						var tabTarget = document.querySelector(target);
+						allTabs.forEach(function(content) {
+							content.classList.remove('show');
+							content.classList.remove('active');
+						});
+			
+						// Show current tab content
+						if (tabTarget) {
+							tabTarget.classList.add('show');
+							tabTarget.classList.add('active');
+						}
+						
+						tabs.forEach(function(t) {
+							t.classList.remove('active');
+						});
+						this.classList.add('active');
+					});
+				});
+			});
+			</script>	
     </body>
 </html>
